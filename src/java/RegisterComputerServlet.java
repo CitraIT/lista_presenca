@@ -15,9 +15,20 @@ public class RegisterComputerServlet extends HttpServlet{
 
             Computer pc = new Computer();
 
+            /* Computer Name */
             pc.setComputerName( req.getParameter("ComputerName") );
-            pc.setComputerIp( req.getParameter("ComputerIP") );
+            
+            /* Computer IP */
+            if(req.getParameter("ComputerIP") == null) {
+                pc.setComputerIp( req.getRemoteAddr() );
+            }else{
+                pc.setComputerIp( req.getParameter("ComputerIP") );
+            }
+            
+            /* Connected User */
             pc.setConnectedUser( req.getParameter("ConnectedUser") );
+            
+            /* Last income */
             DateTimeFormatter dtFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
             pc.setLastIncome( LocalDateTime.ofInstant(Instant.now(), ZoneOffset.of("-03:00")).format(dtFormatter) );
 
