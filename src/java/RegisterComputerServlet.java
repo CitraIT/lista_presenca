@@ -19,7 +19,7 @@ public class RegisterComputerServlet extends HttpServlet{
             pc.setComputerName( req.getParameter("ComputerName") );
             
             /* Computer IP */
-            if(req.getParameter("ComputerIP") == null) {
+            if(req.getParameter("ComputerIP") == null || req.getParameter("ComputerIP") == "") {
                 pc.setComputerIp( req.getRemoteAddr() );
             }else{
                 pc.setComputerIp( req.getParameter("ComputerIP") );
