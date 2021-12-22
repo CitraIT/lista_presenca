@@ -7,46 +7,53 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 
 public class RegisterComputerServlet extends HttpServlet{
+    
+    public void init(){
+        
+        /* LOAD INIT PARAMS */
+        ServletConfig config = getServletConfig();
+        String DefaultAdminPassword = getServletContext().getInitParameter("DefaultAdminPassword");
+        String DatabaseName = getServletContext().getInitParameter("DatabaseName");
 
+        /* GET ROOT PHYSICAL PATH OF THIS PROJECT */
+        String thisAppRootPath = getServletContext().getRealPath("/");
+        String DatabaseLocation = thisAppRootPath.replace("\\", "/") +  DatabaseName;
+
+        /* CREATING THE DATABASE */
+        try{
+            DatabaseFactory.createDatabase(DatabaseLocation, DefaultAdminPassword);
+           
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        
+        
+
+    }
+
+    /* REGISTERS A COMPUTER */
     public void doPost(HttpServletRequest req, HttpServletResponse res)
         throws IOException,ServletException{
 
             Computer pc = new Computer();
+            pc.loadFromServletRequest(req);
 
-            /* Computer Name */
-            pc.setComputerName( req.getParameter("ComputerName") );
-            
-            /* Computer IP */
-            if(req.getParameter("ComputerIP") == null || req.getParameter("ComputerIP") == "") {
-                pc.setComputerIp( req.getRemoteAddr() );
+            ComputerDAO computerDAO = new ComputerDAO();
+            if(computerDAO.exists(pc.getComputerName())){
+                computerDAO.update(pc);
             }else{
-                pc.setComputerIp( req.getParameter("ComputerIP") );
-            }
-            
-            /* Connected User */
-            pc.setConnectedUser( req.getParameter("ConnectedUser") );
-            
-            /* Last income */
-            DateTimeFormatter dtFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-            pc.setLastIncome( LocalDateTime.ofInstant(Instant.now(), ZoneOffset.of("-03:00")).format(dtFormatter) );
-
-            /* validation of user parameters */
-            if(pc.getConnectedUser() == null) {
-                pc.setConnectedUser("n/a");
+                computerDAO.add(pc);
             }
 
-
-            String rootPath = getServletConfig().getServletContext().getRealPath("/");
-            String filename = rootPath + "computers/" + pc.getComputerName() + ".txt";
-            PrintWriter outfile = new PrintWriter(new FileWriter(filename));
-            outfile.println("COMPUTERNAME="+pc.getComputerName());
-            outfile.println("COMPUTERIP="+pc.getComputerIp());
-            outfile.println("USER="+pc.getConnectedUser());
-            outfile.println("LASTINCOME="+pc.getLastIncome());
-            outfile.flush();
-            outfile.close();
 
             res.setContentType("text/json");
             PrintWriter out = res.getWriter();
