@@ -3,7 +3,10 @@
 
 
 :: delete old classes 
-del /q /s ..\..\ListaPresenca\WEB-INF\classes\com\citrait\listpresenca\*.*
+del /q /s ..\..\ListaPresenca\WEB-INF\classes\com\citrait\listapresenca\*.*
+
+:: Copy classes files
+copy /Y *.class "..\..\ListaPresenca\WEB-INF\classes\com\citrait\listapresenca\"
 
 :: Copy file to tomcat webapps folder
 copy /Y *.class "C:\Program Files\Apache Software Foundation\Tomcat 9.0\webapps\app1\WEB-INF\classes\com\citrait\listapresenca"

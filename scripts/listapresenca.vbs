@@ -29,7 +29,7 @@ Next
 
 ' Sending data to web server
 Set Http = CreateObject("WinHttp.WinHttpRequest.5.1")
-Http.Open "POST", "http://localhost:9090/app1/register"
+Http.Open "POST", "http://172.16.90.10:9090/ListaPresenca/register"
 Http.SetRequestHeader "Content-Type", "application/x-www-form-urlencoded"
 Http.Send "ComputerName="&Computername&"&ComputerIP="&IPAddresses&"&ConnectedUser="&Username
 
