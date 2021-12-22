@@ -14,6 +14,7 @@ public @Data class Computer{
     String computerName;
     String computerIp;
     String connectedUser;
+    String AnydeskID;
     String lastIncome;
 
 
@@ -27,6 +28,9 @@ public @Data class Computer{
         
         /* Connected User */
         this.setConnectedUser(req.getParameter("ConnectedUser"));
+
+        /* Anydesk ID */
+        this.setAnydeskID(req.getParameter("AnydeskID"));
 
         /* Last Income */
         DateTimeFormatter dtFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");

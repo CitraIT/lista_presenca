@@ -50,6 +50,7 @@ if(session.getAttribute("isAuth") == null){
                 <th>Usuario</th>
                 <th>Computador</th>
                 <th>IP</th>
+				<th>Anydesk</th>
                 <th>Último Contato</th>
             </tr>
         </thead>
@@ -63,6 +64,7 @@ if(session.getAttribute("isAuth") == null){
 					<td><%=o.getConnectedUser()%></td>
 					<td><%=o.getComputerName()%></td>
 					<td><%=o.getComputerIp()%></td>
+					<td><%=o.getAnydeskID()%></td>
 					<td><%=o.getLastIncome()%></td>
 				</tr>
 			<%

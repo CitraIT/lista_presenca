@@ -13,6 +13,7 @@
 	<servlet>
       <servlet-name>registercomputer</servlet-name>
       <servlet-class>com.citrait.listapresenca.RegisterComputerServlet</servlet-class>
+      <load-on-startup>3</load-on-startup>
   </servlet>
 	<servlet-mapping>
       <servlet-name>registercomputer</servlet-name>

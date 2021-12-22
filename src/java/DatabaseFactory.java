@@ -41,13 +41,13 @@ public class DatabaseFactory {
             Statement stmt = conn.createStatement();
             
             /* CREATE TABLES */
-            stmt.execute("create table users(username TEXT, password TEXT)");
-            stmt.execute("create table computers(computer_name TEXT, connected_user TEXT, computer_ip TEXT, last_income TEXT)");
+            // stmt.execute("create table users(username TEXT, password TEXT)");
+            // stmt.execute("create table computers(computer_name TEXT, connected_user TEXT, computer_ip TEXT, anydesk_id TEXT, last_income TEXT)");
 
             /* INSERT DEFAULT DATA */
-            PreparedStatement pstmt = conn.prepareStatement("insert into users(username, password) values('admin', ?)");
-            pstmt.setString(1, DefaultAdminPassword);
-            pstmt.executeUpdate();
+            // PreparedStatement pstmt = conn.prepareStatement("insert into users(username, password) values('admin', ?)");
+            // pstmt.setString(1, DefaultAdminPassword);
+            // pstmt.executeUpdate();
         }catch(SQLException e){
             e.printStackTrace();
         }

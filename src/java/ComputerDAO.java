@@ -15,12 +15,13 @@ public class ComputerDAO extends Computer{
     public void add(Computer pc){
         try{
             Connection conn = DatabaseFactory.getConnection();
-            String query = "insert into computers(computer_name, computer_ip, connected_user, last_income) values (?, ?, ?, ?)";
+            String query = "insert into computers(computer_name, computer_ip, connected_user, anydesk_id, last_income) values (?, ?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, pc.getComputerName());
             stmt.setString(2, pc.getComputerIp());
             stmt.setString(3, pc.getConnectedUser());
-            stmt.setString(4, pc.getLastIncome());
+            stmt.setString(4, pc.getAnydeskID());
+            stmt.setString(5, pc.getLastIncome());
             stmt.executeUpdate();
         }catch(SQLException e){
             e.printStackTrace();
@@ -32,12 +33,13 @@ public class ComputerDAO extends Computer{
     public void update(Computer pc){
         try{
             Connection conn = DatabaseFactory.getConnection();
-            String query = "update computers set computer_ip=?, connected_user=?, last_income=? where computer_name=?";
+            String query = "update computers set computer_ip=?, connected_user=?, last_income=?, anydesk_id=? where computer_name=?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, pc.getComputerIp());
             stmt.setString(2, pc.getConnectedUser());
             stmt.setString(3, pc.getLastIncome());
-            stmt.setString(4, pc.getComputerName());
+            stmt.setString(4, pc.getAnydeskID());
+            stmt.setString(5, pc.getComputerName());
             stmt.executeUpdate();
         }catch(SQLException e){
             e.printStackTrace();
@@ -59,6 +61,7 @@ public class ComputerDAO extends Computer{
                 computer.setComputerName(rs.getString("computer_name"));
                 computer.setComputerIp(rs.getString("computer_ip"));
                 computer.setConnectedUser(rs.getString("connected_user"));
+                computer.setAnydeskID(rs.getString("anydesk_id"));
                 computer.setLastIncome(rs.getString("last_income"));
                 allComputers.add(computer);
             }
@@ -90,6 +93,7 @@ public class ComputerDAO extends Computer{
                 pc.setComputerName(rs.getString("computer_name"));
                 pc.setComputerIp(rs.getString("computer_ip"));
                 pc.setConnectedUser(rs.getString("connected_user"));
+                pc.setAnydeskID(rs.getString("anydesk_id"));
                 pc.setLastIncome(rs.getString("last_income"));
                 
             }
@@ -140,6 +144,7 @@ public class ComputerDAO extends Computer{
                 computer.setComputerName(rs.getString("computer_name"));
                 computer.setComputerIp(rs.getString("computer_ip"));
                 computer.setConnectedUser(rs.getString("connected_user"));
+                computer.setAnydeskID(rs.getString("anydesk_id"));
                 computer.setLastIncome(rs.getString("last_income"));
                 userComputers.add(computer);
             }

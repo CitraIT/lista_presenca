@@ -35,7 +35,7 @@ public class RegisterComputerServlet extends HttpServlet{
         }catch(SQLException e){
             e.printStackTrace();
         }
-        
+
         
 
     }
@@ -46,6 +46,14 @@ public class RegisterComputerServlet extends HttpServlet{
 
             Computer pc = new Computer();
             pc.loadFromServletRequest(req);
+
+            /* validate some fields */
+            if(pc.getComputerName() == "" || pc.getComputerName() == null){
+                res.setContentType("text/json");
+                PrintWriter out = res.getWriter();
+                out.print("{success: false, reason: 'empty computer name'}");
+                return;
+            }
 
             ComputerDAO computerDAO = new ComputerDAO();
             if(computerDAO.exists(pc.getComputerName())){
