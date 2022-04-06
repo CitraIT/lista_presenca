@@ -1,0 +1,10 @@
+version: '3'
+services:
+  listapresenca:
+    container_name: listapresenca
+    build: app
+    restart: always
+    environment:
+      - DEBUG=yes
+    ports:
+      - "8080:8080"
