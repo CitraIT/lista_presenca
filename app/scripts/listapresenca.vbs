@@ -1,6 +1,6 @@
 '------------------------------------------------------------------------------
-' CITRA IT - EXCEL�NCIA EM TI
-' Script para notificar a lista de presenca do usu�rio conectado no computador
+' CITRA IT - EXCELENCIA EM TI
+' Script para notificar a lista de presenca do usuario conectado no computador
 ' author: luciano@citrait.com.br
 ' Data: 18/12/2021
 '------------------------------------------------------------------------------
